@@ -83,6 +83,7 @@ def predict():
     s_pc = 100*(sum(df['taken_percent'])/len(df['taken_percent']))
     if (s_pc > 27.9 and s_pc < 28.2):
         s_pc = 27.5
+    print(s_pc, "CVBGRBACVFGRDRGEAFWDFVGDHRGSFSDVGH: " + str(round(s_pc,2))[0:5])
     seats_full_str = "Currently, there are " + str(round(s_pc,2))[0:5] + "% of seats booked in the sessions on during your shifts:"
     # percentage string
     percent_str = model.make_model(switch, df, function)
