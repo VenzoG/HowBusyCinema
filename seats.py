@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 import pandas as pd
 import os
 
+#https://www.andressevilla.com/running-chromedriver-with-python-selenium-on-heroku/
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 chrome_options.add_argument("--headless")
