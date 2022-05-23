@@ -256,4 +256,4 @@ class model():
     
     def make_model(switch, df, function):
 
-        return "[Placeholder! Percentage predictive model isn't done yet.]"
+        return "[Placeholder! Percentage predictive model isn't done yet.] There is a 40% chance your shift will be cut further."
