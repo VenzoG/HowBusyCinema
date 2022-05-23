@@ -8,12 +8,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    print("DSASDFBSDFFDCVFBSFSCFBA")
+    print("We start the program here")
     return render_template('index.html')
 
 @app.route('/predict',methods=['POST'])
 def predict():
-
+    print("Inside predict(). POST method success")
     switch_str = {"shift":request.form['shift'],
                   "date":request.form['date'],
                   "start_time":request.form['start_time'],
