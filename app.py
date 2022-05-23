@@ -77,7 +77,7 @@ def predict():
             end_min = "0" + str(rows['end_time'].minute) 
         
         movies_str[i] = rows["movie"] + " " + start_hr + ":" + start_min + " - " + end_hr + ":" + end_min + ": "
-        movies_str[i] = movies_str[i] + str(100*round(rows['taken_percent'],2))[0:5] + "%."
+        movies_str[i] = movies_str[i] + str(100*round(rows['taken_percent'],2))[0:4] + "%."
 
     # seats full string
     s_pc = 100*(sum(df['taken_percent'])/len(df['taken_percent']))
