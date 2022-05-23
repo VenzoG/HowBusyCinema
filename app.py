@@ -81,7 +81,7 @@ def predict():
 
     # seats full string
     s_pc = 100*(sum(df['taken_percent'])/len(df['taken_percent']))
-    seats_full_str = "Currently, there are " + str(int(s_pc)) + "% of seats booked in the sessions on during your shifts:"
+    seats_full_str = "Currently, there are " + str(round(s_pc,2))[0:5] + "% of seats booked in the sessions on during your shifts:"
     # percentage string
     percent_str = model.make_model(switch, df, function)
 
