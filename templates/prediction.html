@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html >
+<!--Based on https://codepen.io/frytyler/pen/EGdtg-->
+    <head>
+      <meta charset="UTF-8">
+      <title>API for sentiment analysis</title>
+      <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    </head>
+
+    <body>
+        <div class="result">
+            <h1> {{ shift_type }} </h1>
+            <h2> {{ time_til }} {{ seats_full }} </h2>
+            {{ movies_0 }} <br>
+            {{ movies_1 }} <br>
+            {{ movies_2 }} <br>
+            {{ movies_3 }} <br>
+            {{ movies_4 }} <br>
+            {{ movies_5 }} <br>
+            {{ movies_6 }} <br>
+            {{ movies_7 }} <br>
+            {{ movies_8 }} <br>
+            {{ movies_9 }} <br>
+            <h3> {{ result }} </h3>
+            {{ percent }}
+
+        </div>
+    </body>
+</html>
