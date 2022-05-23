@@ -204,12 +204,13 @@ def get_seats(date):
     prev_cinema = 2
     function = False
     for row in df.iterrows():
-        if (prev_cinema != row[1]['cinema']):
+        if (prev_cinema != row[1]['cinema'] and row[1]['cinema'] != -1):
             prev_cinema = row[1]['cinema']
         else:
             print("DISCREPENCY DETECTED")
             print("There may be a private session, two consecutive sessions are located in the same cinema.")
-            function = True
+            if (row[1]['cinema'] != -1):
+                function = True
     
     return df, function
 
