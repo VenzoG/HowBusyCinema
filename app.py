@@ -51,6 +51,10 @@ def predict():
     
     df, function = have_seats.grab(switch['date'])
     #remove all non-shift sessions of day
+    print(type(df))
+    print(df)
+    print(type(switch))
+    print(switch)
     df=df[(switch['start_time'] - timedelta(minutes=20)) < df['end_time']]
     df=df[switch['end_time'] > df['end_time']]
     
