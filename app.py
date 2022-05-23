@@ -62,7 +62,7 @@ def predict():
     df=df[(switch['start_time'] - timedelta(minutes=20)) < df['end_time']]
     df=df[switch['end_time'] > df['end_time']]
     
-    movies_str = ["[Past or non-public session]"]*10
+    movies_str = ["[Unavailable session]"]*10
     for i, rows in df.iterrows():
         start_hr = str(rows['session_time'].hour)
         if (rows['session_time'].minute >= 10):
