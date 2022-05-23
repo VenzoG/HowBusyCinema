@@ -39,11 +39,11 @@ def predict():
     #result string
     result_str = ""
     if (switch['shift'] == 'gcs'):
-        result_str = result_str + "As a supervisor, it is unlikely your shift will be cut. "
-    elif (switch['confirmation'] == 'no'):
-        result_str = result_str + "As your shift has not yet been confirmed, it is likely your shift will be cut further. "
+        result_str = result_str + "As a supervisor, it is less likely your shift will be cut. "
+    elif (switch['confirmation'] == 'yes'):
+        result_str = result_str + "As your shift has been confirmed, it is less likely your shift will be cut further. "
     elif (switch['cut'] == 'yes'):
-        result_str = result_str + "As your shift has already been cut, it is unlikely your shift will be cut further. "
+        result_str = result_str + "As your shift has already been cut, it is less likely your shift will be cut further. "
     else:
         result_str = "Be wary! "
         
