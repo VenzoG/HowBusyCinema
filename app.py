@@ -50,6 +50,10 @@ def predict():
     result_str = result_str + "Here is the predictive percentage that your shift will be cut further:"
     
     df, function = have_seats.grab(switch['date'])
+    
+    if (df == "unconfirmed"):
+    return render_template('prediction.html', time_til=(time_until_str))
+
     #remove all non-shift sessions of day
     print(type(df))
     print(df)
