@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
+    print("DSASDFBSDFFDCVFBSFSCFBA")
     return render_template('index.html')
 
 @app.route('/predict',methods=['POST'])
