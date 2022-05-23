@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html >
+<!--Based on https://codepen.io/frytyler/pen/EGdtg-->
+    <head>
+      <meta charset="UTF-8">
+      <title>API for sentiment analysis</title>
+      <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    </head>
+
+    <body>
+        <div class="result">
+            <h1> There is no website information available for the GC sessions of this particular date. This is most likely because the bookings have not yet been released, or because the sessions have already happened for this date. </h1>
+            <h2> {{ time_til }} </h2>
+
+            <br>
+            If this seems incorrect, please let Vincent know.
+        </div>
+    </body>
+</html>
