@@ -51,7 +51,7 @@ def predict():
     
     df, function = have_seats.grab(switch['date'])
     
-    if (type(df) == "str"):
+    if (type(df) == str):
         return render_template('prediction.html', time_til=(time_until_str))
 
     #remove all non-shift sessions of day
