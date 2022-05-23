@@ -7,6 +7,16 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from datetime import datetime, timedelta
 import pandas as pd
+import os
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
+# Now you can start using Selenium
 
 def get_seats(date):
     t_year = str(date.year)
@@ -18,9 +28,6 @@ def get_seats(date):
 
     t_day = str(date.day)
     
-    s=Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=s)
-    driver.maximize_window()
     driver.implicitly_wait(10);
     driver.get("https://www.eventcinemas.com.au/Sessions#cinemas=64&exp=GC&date=" + t_year + "-" + t_month+ "-"+ t_day);
     
