@@ -260,13 +260,13 @@ class model():
         if (switch['shift'] == 'gcs'):
             chance *= 0.05
         else:
-            chance *= 0.33
+            chance *= 0.25
 
         "-confirmed vs non-confirmed *70%, *140"
         if (switch['confirmation'] == 'no'):
-            chance *= 1.4
+            chance *= 1.1
         else:
-            chance *= 0.7
+            chance *= 0.4
 
         "-cut vs not-yet cut; *10%, *110%"
         if (switch['cut'] == 'yes'):
@@ -310,10 +310,17 @@ class model():
             else:
                 chance *= 1.1
         else:
-            chance *= 1
+            if (presales >= 0.4):
+                chance *= 0
+            if (presales >= 0.3):
+                chance *= 0.1
+            elif (presales >= 0.2):
+                chance *= 0.4
+            else:
+                chance *= 0.7
 
         "-if function==True: *10%"
         if (function==True):
             chance *= 0.05
         
-        return "There is a "+str(chance)[0:5]+"% chance that your shift will be cut."
+        return "There is a "+str(chance)[0:5]+"% chance that your shift could be cut."
