@@ -315,3 +315,5 @@ class model():
         "-if function==True: *10%"
         if (function==True):
             chance *= 0.05
+        
+        return "There is a "+str(chance)+"% chance that your shift will be cut."
