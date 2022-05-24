@@ -258,15 +258,15 @@ class model():
         -runner/host disposible - *200% (3rd person cut if weekend), *150% (2nd person cut if weekday Mon-Thurs)
         """
         if (switch['shift'] == 'gcs'):
-            chance *= 0.05
-        else:
             chance *= 0.25
+        else:
+            chance *= 0.75
 
         "-confirmed vs non-confirmed *70%, *140"
         if (switch['confirmation'] == 'no'):
-            chance *= 1.1
+            chance *= 1.4
         else:
-            chance *= 0.4
+            chance *= 0.8
 
         "-cut vs not-yet cut; *10%, *110%"
         if (switch['cut'] == 'yes'):
@@ -304,9 +304,9 @@ class model():
             if (presales >= 0.4):
                 chance *= 0.05
             if (presales >= 0.3):
-                chance *= 0.2
+                chance *= 0.3
             elif (presales >= 0.2):
-                chance *= 0.6
+                chance *= 0.8
             else:
                 chance *= 1.1
         else:
@@ -315,7 +315,7 @@ class model():
             if (presales >= 0.3):
                 chance *= 0.1
             elif (presales >= 0.2):
-                chance *= 0.4
+                chance *= 0.2
             else:
                 chance *= 0.7
 
