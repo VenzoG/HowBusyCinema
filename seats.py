@@ -251,5 +251,67 @@ class model():
         pass
     
     def make_model(switch, df, function):
+        chance = 100
 
-        return "[Placeholder! Percentage predictive model isn't done yet.] There is a 40% chance your shift will be cut further."
+        """-supervisor vs non supervisor - *5%
+        -1 in kitchen at all times - *50%
+        -runner/host disposible - *200% (3rd person cut if weekend), *150% (2nd person cut if weekday Mon-Thurs)
+        """
+        if (switch['shift'] == 'gcs'):
+            chance *= 0.05
+        elif (switch['shift'] == 'gck'):
+            chance *= 0.7
+        else:
+            chance *= 1.5
+
+        "-confirmed vs non-confirmed *70%, *140"
+        if (switch['confirmation'] == 'no'):
+            chance *= 1.4
+        else:
+            chance *= 0.7
+
+        "-cut vs not-yet cut; *10%, *110%"
+        if (switch['cut'] == 'yes'):
+            chance *= 0.1
+        else:
+            chance *= 1.1
+
+        "-cannot be less than 3 hours, guarantee no cut *0%"
+        shift = (switch['start_time'] - switch['end_time']) *-1
+        if (shift <= timedelta(hours=3)):
+            chance *= 0
+
+
+        """-time to shift and sales of tickets;
+        Presales 0-12 hours to: 40%+ presales - *40% plus
+        Presales 0-12 hours to: 30% presales - *80% plus
+        Presales 0-12 hours to: 20% presales - *160% plus
+        Presales 0-12 hours to: <=10% presales - *200% plus
+        Presales 12-36 hours to: 30%+ presales - *40% plus
+        Presales 12-36 hours to: 20% presales - *80% plus
+        Presales 12-36 hours to: <=10% presales - *160% plus
+        """
+        time_til_shift = (switch['start_time'] - datetime.now())
+        presales = sum(df['taken_percent'])/len(df['taken_percent'])
+        if (time_til_shift <= timedelta(hours=12)):
+            if (presales >= 0.4):
+                chance *= 0.4
+            elif (presales >= 0.3):
+                chance *= 0.8
+            elif (presales >= 0.2):
+                chance *= 1.6
+            else:
+                chance *= 2.0
+        elif (time_til_shift <= timedelta(hours=36)):
+            if (presales >= 0.3):
+                chance *= 0.4
+            elif (presales >= 0.2):
+                chance *= 0.8
+            else:
+                chance *= 1.6
+        else:
+            chance *= 1
+
+        "-if function==True: *10%"
+        if (function==True):
+            chance *= 0.05
