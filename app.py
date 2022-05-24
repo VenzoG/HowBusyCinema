@@ -60,7 +60,11 @@ def predict():
     print(type(switch))
     print(switch)
     df=df[(switch['start_time'] - timedelta(minutes=20)) < df['end_time']]
+    print(df)
+    print("2ND")
     df=df[switch['end_time'] > df['end_time']]
+    print(df)
+    print("3RD")
     
     movies_str = ["[Unavailable, private or inactive session]"]*10
     for i, rows in df.iterrows():
