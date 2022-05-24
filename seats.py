@@ -259,10 +259,8 @@ class model():
         """
         if (switch['shift'] == 'gcs'):
             chance *= 0.05
-        elif (switch['shift'] == 'gck'):
-            chance *= 0.7
         else:
-            chance *= 1.5
+            chance *= 0.33
 
         "-confirmed vs non-confirmed *70%, *140"
         if (switch['confirmation'] == 'no'):
@@ -295,20 +293,20 @@ class model():
         presales = sum(df['taken_percent'])/len(df['taken_percent'])
         if (time_til_shift <= timedelta(hours=12)):
             if (presales >= 0.4):
-                chance *= 0.4
+                chance *= 0.2
             elif (presales >= 0.3):
-                chance *= 0.8
+                chance *= 0.4
             elif (presales >= 0.2):
-                chance *= 1.6
+                chance *= 0.8
             else:
-                chance *= 2.0
+                chance *= 1.6
         elif (time_til_shift <= timedelta(hours=36)):
             if (presales >= 0.3):
-                chance *= 0.4
+                chance *= 0.2
             elif (presales >= 0.2):
-                chance *= 0.8
+                chance *= 0.4
             else:
-                chance *= 1.6
+                chance *= 0.9
         else:
             chance *= 1
 
