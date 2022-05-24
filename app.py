@@ -60,12 +60,12 @@ def predict():
     print(type(switch))
     print(switch)
     # if shift occurs at least 20 min after end of start of shift
-    df=df[(switch['start_time'] - timedelta(minutes=20)) < df['end_time']]
+    df=df[(switch['start_time'] - timedelta(minutes=20)) =< df['end_time']]
     print(df)
     print("2ND")
     df0 = df.copy()
     # if shift occurs at least 20 min
-    df=df[switch['end_time'] > df['session_time']]
+    df=df[switch['end_time'] >= df['session_time']]
     print(df)
     print("3RD")
     
