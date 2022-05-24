@@ -316,4 +316,4 @@ class model():
         if (function==True):
             chance *= 0.05
         
-        return "There is a "+str(chance)+"% chance that your shift will be cut."
+        return "There is a "+str(chance)[0:5]+"% chance that your shift will be cut."
