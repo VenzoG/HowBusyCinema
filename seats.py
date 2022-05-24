@@ -293,20 +293,22 @@ class model():
         presales = sum(df['taken_percent'])/len(df['taken_percent'])
         if (time_til_shift <= timedelta(hours=12)):
             if (presales >= 0.4):
-                chance *= 0.2
+                chance *= 0.1
             elif (presales >= 0.3):
-                chance *= 0.4
+                chance *= 0.3
             elif (presales >= 0.2):
-                chance *= 0.8
+                chance *= 0.7
             else:
-                chance *= 1.6
+                chance *= 1.5
         elif (time_til_shift <= timedelta(hours=36)):
+            if (presales >= 0.4):
+                chance *= 0.05
             if (presales >= 0.3):
                 chance *= 0.2
             elif (presales >= 0.2):
-                chance *= 0.4
+                chance *= 0.6
             else:
-                chance *= 0.9
+                chance *= 1.1
         else:
             chance *= 1
 
