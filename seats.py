@@ -311,7 +311,7 @@ class model():
                 chance *= 1.1
         else:
             if (presales >= 0.4):
-                chance *= 0
+                chance *= 0.01
             if (presales >= 0.3):
                 chance *= 0.1
             elif (presales >= 0.2):
@@ -323,4 +323,4 @@ class model():
         if (function==True):
             chance *= 0.05
         
-        return "There is a "+str(chance)[0:5]+"% chance that your shift could be cut."
+        return "There is a "+str(chance)[0:5]+"% chance that your shift could be cut. Hugs and Kisses!!!"
