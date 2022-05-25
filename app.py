@@ -35,7 +35,7 @@ def predict():
         shift_str = "You have a GC host shift (runner, host comp is still kaput af)."
     elif (switch['shift']=="gcs"):
         shift_str = "You are a GC superfemale (statistically speaking yuh probs a woman)."
-    elif (siwthc['shift']=="up"):
+    elif (switch['shift']=="up"):
         shift_str = "You are working upstairs. This predictor is not ready for you yet sorry :("
     
     #result string
