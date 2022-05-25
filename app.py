@@ -26,15 +26,17 @@ def predict():
     
     # shift string
     if (switch['shift']=="gck"):
-        shift_str = "You have a GC kitchen shift."
+        shift_str = "You have a GC kitchen shift. Here is a last minute date night package :)"
     elif (switch['shift']=="gcb"):
-        shift_str = "You have a GC bar sales shift."
+        shift_str = "You have a GC bar sales shift. Here is the newest promo deal no one told you about! :D"
     elif (switch['shift']=="gcr"):
-        shift_str = "You have a GC runner shift."
+        shift_str = "You have a GC runner shift. RUN FORREST RUN."
     elif (switch['shift']=="gch"):
-        shift_str = "You have a GC host shift."
+        shift_str = "You have a GC host shift (runner, host comp is still kaput af)."
     elif (switch['shift']=="gcs"):
-        shift_str = "You are a GC supervisor."
+        shift_str = "You are a GC superfemale (statistically speaking yuh probs a woman)."
+    elif (siwthc['shift']=="up"):
+        shift_str = "You are working upstairs. This predictor is not ready for you yet sorry :("
     
     #result string
     result_str = ""
@@ -47,7 +49,7 @@ def predict():
     if (result_str == ""):
         result_str = "Be wary! "
         
-    result_str = result_str + "Here is the predictive percentage that your shift will be cut further:"
+    result_str = result_str + "Here is the predictive percentage that your shift will be cut further ASFDSAFSFSK:"
     
     df, function = have_seats.grab(switch['date'])
     
