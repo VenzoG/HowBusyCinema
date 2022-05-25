@@ -67,7 +67,8 @@ def predict():
     print("2ND")
     df0 = df.copy()
     # if shift occurs at least 20 min
-    if (switch['date'].day == df.loc[0, 'session_time'].day):
+    # and if shift doesn't end the next day
+    if (switch['end_time'].hour >= 6):
         df=df[switch['end_time'] >= df['session_time']]
     print(df)
     print("3RD")
