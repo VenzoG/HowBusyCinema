@@ -5,7 +5,7 @@ import pandas as pd
 import os
 
 #https://www.andressevilla.com/running-chromedriver-with-python-selenium-on-heroku/
-chrome_options = webdriver.ChromeOptions()
+chrome_options = webdriver.ChromeOptions("CHROMEDRIVER_VERSION")
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-dev-shm-usage")
