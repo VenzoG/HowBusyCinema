@@ -166,7 +166,10 @@ def get_seats(date):
             print("DETERMINING NEW SET WITH EXPANDED PARAMETERS FOR CLEANUP OF SPARES - PREVIOUS SESSION MATCH")
             new_assign=0
             # these are the changed lines of code
-            curr_end = df[df['cinema']==0].iloc[curr_sess]["session_time"]
+            if (len(df[df['cinema']==0]) > 0):
+                curr_end = df[df['cinema']==0].iloc[curr_sess]["session_time"]
+            else:
+                break
             curr_cinema = df.loc[(df[df['cinema']==0].index[0]-1), 'cinema']
             if (curr_cinema == 1):
                 curr_cinema=2
