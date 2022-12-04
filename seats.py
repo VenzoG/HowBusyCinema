@@ -22,7 +22,10 @@ def get_seats(date):
     else:
         t_month = "0" + str(date.month)
 
-    t_day = str(date.day)
+    if date.day > 10:
+        t_day = str(date.day)
+    else:
+        t_day = "0" + str(date.day)
     
     driver.implicitly_wait(10);
     driver.get("https://www.eventcinemas.com.au/Sessions#cinemas=64&exp=GC&date=" + t_year + "-" + t_month+ "-"+ t_day);
