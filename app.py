@@ -26,15 +26,15 @@ def predict():
     
     # shift string
     if (switch['shift']=="gck"):
-        shift_str = "You have a GC kitchen shift. Here is a last minute date night package :)"
+        shift_str = "You have a GC kitchen shift. Last minute date night package :)"
     elif (switch['shift']=="gcb"):
         shift_str = "You have a GC bar sales shift. Here is the newest promo deal no one told you about! :D"
     elif (switch['shift']=="gcr"):
         shift_str = "You have a GC runner shift. RUN FORREST RUN."
     elif (switch['shift']=="gch"):
-        shift_str = "You have a GC host shift (runner, host comp is still kaput af)."
+        shift_str = "You have a GC host (runner) shift. Host with the most."
     elif (switch['shift']=="gcs"):
-        shift_str = "You are a GC superfemale (statistically speaking yuh probs a woman)."
+        shift_str = "You are a GC supervisor."
     elif (switch['shift']=="up"):
         shift_str = "You are working upstairs. This predictor is not ready for you yet sorry :("
     

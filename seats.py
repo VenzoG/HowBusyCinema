@@ -17,12 +17,12 @@ driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), c
 def get_seats(date):
     t_year = str(date.year)
 
-    if date.month > 10:
+    if date.month >= 10:
         t_month = str(date.month)
     else:
         t_month = "0" + str(date.month)
 
-    if date.day > 10:
+    if date.day >= 10:
         t_day = str(date.day)
     else:
         t_day = "0" + str(date.day)
@@ -88,131 +88,62 @@ def get_seats(date):
     df.drop(["index"], axis=1, inplace=True)
     df.loc[0, "cinema"] = 1
     df['taken_percent'] = 1-df['seats_available']/40
-    curr_sess=0
-    
 
-    
-    while (df['cinema'].min() == 0):
-        # start with cinema 1 stream
-        if (df['cinema'].value_counts()[1] == 1):
-            print("CURR CINEMA = 1")
-            curr_cinema=1 
-        # else, understand the cinema 2 stream
-        else:
-            print("CURR CINEMA = 2")
-            curr_cinema=2
-            # find un assigned cinema row
-            for row in df.iterrows():
-                if (row[1]['cinema']==1):
-                    continue
-                else:
-                    print("CURR_SESS = ", row[0])
-                    curr_sess = row[0]
-                    df.loc[row[0], 'cinema'] = curr_cinema
-                    break
+    # cinema1 and cinema2 split
+    df1 = pd.DataFrame().add(df.loc[0])
+    df2 = pd.DataFrame().add(df.loc[0])
 
-        while (curr_sess != -1):
-            # determine cleaning period and likelihood of next session
-            print("DETERMINING NEW SET")
-            new_assign=0
-            curr_end = df.loc[curr_sess, "end_time"]
-            curr_end_min  = curr_end + timedelta(minutes = 19)
-            curr_end_max =  curr_end + timedelta(minutes = 45)
-            # check in rows where the cinema is not equal to 0
-            for row in df[df['cinema']==0].iterrows():
-                print("CHECKING ROW")
-                next_end = row[1]['session_time']
-                print(curr_end_min, curr_end_max)
-                print(next_end)
-                if (curr_end_min < next_end and curr_end_max > next_end):
-                    print("*CINEMA CHANGE*")
-                    df.loc[row[0], 'cinema'] = curr_cinema
-                    curr_sess = row[0]
-                    new_assign=1
-                    break
+    df1 = pd.concat([df1,pd.DataFrame(df.loc[0]).T])
+    df.drop(0,inplace=True)
+    curr_end = df1.iloc[-1]['end_time']
+    for i, row in df.iterrows():
+        next_end = df.loc[i, "session_time"]
+        curr_end_min  = curr_end + timedelta(minutes = 19)
+        curr_end_max =  curr_end + timedelta(minutes = 55)
+        print(next_end, curr_end_min, curr_end_max)
+        if (curr_end_min <= next_end and curr_end_max >= next_end):
+            df1 = pd.concat([df1,pd.DataFrame(df.loc[i]).T])
+            df.drop(i, inplace=True)
+            curr_end = df1.iloc[-1]['end_time']
 
-            # if we cannot find a row to assign a new session, break
-            if (new_assign==0):
-                curr_sess=-1
-                print("CANNOT FIND NEW SET")
-
-        curr_sess = 0 
-        while (curr_sess != -1):
-        # determine cleaning period and likelihood of next session
-            print("DETERMINING NEW SET WITH EXPANDED PARAMETERS FOR CLEANUP OF SPARES")
-            new_assign=0
-            # these are the changed lines of code
-            curr_end = df[df['cinema']==0].iloc[curr_sess]["end_time"]
-            curr_cinema = df.loc[(df[df['cinema']==0].index[0]-1), 'cinema']
-            if (curr_cinema == 1):
-                curr_cinema=2
-            elif (curr_cinema == 2):
-                curr_cinema=1
-            print("****Cinema*******", curr_cinema)
-
-            curr_end_min  = curr_end + timedelta(minutes = 20)
-            curr_end_max =  curr_end + timedelta(minutes = 70)
-            # check in rows where the cinema is not equal to 0 for proceeding session
-            for row in df.iterrows():
-                print("CHECKING ROW")
-                next_end = row[1]['session_time']
-                print(curr_end_min, curr_end_max)
-                print(next_end)
-                if (curr_end_min < next_end and curr_end_max > next_end):
-                    print("*CINEMA CHANGE OF PREVIOUSLY BLANK ROW*")
-                    df.loc[df[df['cinema']==0].index[0], 'cinema'] = curr_cinema
-                    if (len(df[df['cinema']==0]) != 0):
-                        new_assign=1
-                    break
-
-        # determine cleaning period and likelihood of previous session
-            print("DETERMINING NEW SET WITH EXPANDED PARAMETERS FOR CLEANUP OF SPARES - PREVIOUS SESSION MATCH")
-            new_assign=0
-            # these are the changed lines of code
-            if (len(df[df['cinema']==0]) > 0):
-                curr_end = df[df['cinema']==0].iloc[curr_sess]["session_time"]
-            else:
-                break
-            curr_cinema = df.loc[(df[df['cinema']==0].index[0]-1), 'cinema']
-            if (curr_cinema == 1):
-                curr_cinema=2
-            else:
-                curr_cinema=1
-            print("****Cinema*******", curr_cinema)
-
-            curr_end_min  = curr_end + timedelta(minutes = 20)
-            curr_end_max =  curr_end + timedelta(minutes = 70)
-
-            # check in rows where cinema is assigned for preceeding session
-            for row in df.iterrows():
-                print("CHECKING ROW")
-                next_end = row[1]['end_time']
-                print(curr_end_min, curr_end_max)
-                print(next_end)
-                if (curr_end_min < next_end and curr_end_max > next_end):
-                    print("*CINEMA CHANGE OF PREVIOUSLY BLANK ROW*")
-                    df.loc[df[df['cinema']==0].index[0], 'cinema'] = curr_cinema
-                    if (len(df[df['cinema']==0]) != 0):
-                        new_assign=1
-                    break
-
-            # if we cannot find a row to assign a new session, break
-            if (new_assign==0):
-                curr_sess=-1
-                print("CANNOT FIND NEW SET")
+    df2 = pd.DataFrame().add(df.iloc[0])
+    df2 = pd.DataFrame().add(df.iloc[0])
+    df2 = pd.concat([df2,pd.DataFrame(df.iloc[0]).T])
+    df.drop(1,inplace=True)
+    curr_end = df2.iloc[0]['end_time']
+    for i, row in df.iterrows():
+        next_end = df.loc[i, "session_time"]
+        curr_end_min  = curr_end + timedelta(minutes = 19)
+        curr_end_max =  curr_end + timedelta(minutes = 55)
+        print(next_end, curr_end_min, curr_end_max)
+        if (curr_end_min <= next_end and curr_end_max >= next_end):
+            df2 = pd.concat([df2,pd.DataFrame(df.loc[i]).T])
+            df.drop(i, inplace=True)
+            curr_end = df2.iloc[-1]['end_time']
     
     #is there a function on
-    prev_cinema = 2
     function = False
-    for row in df.iterrows():
-        if (prev_cinema != row[1]['cinema'] and row[1]['cinema'] != -1):
-            prev_cinema = row[1]['cinema']
+    if (df1.iloc[0]['session_time'].weekday()>=5) {
+        if (df2.shape[0] - df1.shape[0] > 0):
+            pd.concat([df1,df])
+            function=True
+        elif (df1.shape[0] - df2.shape[0] > 0):
+            pd.concat([df2,df])
+            function=True
         else:
-            print("DISCREPENCY DETECTED")
-            print("There may be a private session, two consecutive sessions are located in the same cinema.")
-            if (row[1]['cinema'] != -1):
-                function = True
-    
+            pass
+    } else {
+        if (df2.shape[0] - df1.shape[0] > 1):
+            pd.concat([df1,df])
+            function=True
+        elif (df1.shape[0] - df2.shape[0] > 1):
+            pd.concat([df2,df])
+            function=True
+        else:
+            pass
+    }
+
+    df = pd.concat([df1,df2])
     return df, function
 
 class have_seats():
