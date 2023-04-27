@@ -124,7 +124,7 @@ def get_seats(date):
     
     #is there a function on
     function = False
-    if (df1.iloc[0]['session_time'].weekday()>=5) {
+    if (df1.iloc[0]['session_time'].weekday()>=5):
         if (df2.shape[0] - df1.shape[0] > 0):
             pd.concat([df1,df])
             function=True
@@ -133,7 +133,7 @@ def get_seats(date):
             function=True
         else:
             pass
-    } else {
+    else:
         if (df2.shape[0] - df1.shape[0] > 1):
             pd.concat([df1,df])
             function=True
@@ -142,7 +142,6 @@ def get_seats(date):
             function=True
         else:
             pass
-    }
 
     df = pd.concat([df1,df2])
     return df, function
