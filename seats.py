@@ -62,7 +62,7 @@ def get_seats(date):
                     runtime = int(text_elements[i].text[0:3])
                     cinema=0
                 if (element.text == "Release Date:"):
-                    release_date_str = int(text_elements[i].text[0:3])
+                    release_date_str = int(text_elements[i].text)
                     release_date = datetime.strptime(release_date_str, "%d/%m/%Y")
               
         driver.back()
