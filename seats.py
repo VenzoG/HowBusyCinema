@@ -65,9 +65,7 @@ def get_seats(date):
                     release_date_str = int(text_elements[i].text[0:3])
                     release_date = datetime.strptime(release_date_str, "%d/%m/%Y")
               
-                    
         driver.back()
-
 
         # once movie is isolated, determine which data-screentype=GC elements are present
         sessions = driver.find_elements(By.XPATH, 
