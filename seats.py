@@ -51,6 +51,7 @@ def get_seats(date):
         desktop_elements = driver.find_elements(By.XPATH, "//*[@class='prop ']/span")
         text_elements = driver.find_elements(By.XPATH, "//*[@class='prop ']/p")
         runtime = -1
+        release_date = -1
         cinema=-1
         if (len(desktop_elements) > 0):
             for i, element in enumerate(desktop_elements):
@@ -59,7 +60,10 @@ def get_seats(date):
                 if (element.text == "Running Time:"):
                     runtime = int(text_elements[i].text[0:3])
                     cinema=0
-                    break
+                if (element.text == "Release Date:"):
+                    release_date = int(text_elements[i].text[0:3])
+              
+                    
         driver.back()
 
 
