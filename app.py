@@ -19,7 +19,7 @@ def predict():
                   "start_time":request.form['start_time'],
                   "end_time":request.form['end_time'],
                   "cut":request.form['cut'],
-                  "school_holidayS":request.form["school_holidayS"]}
+                  "school_holidayS":request.form["school_holidays"]}
     switch = change_datetime.change(switch_str)
     # time_until string
     time_until_str = change_datetime.time_until(switch)
