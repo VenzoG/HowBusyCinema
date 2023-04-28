@@ -17,8 +17,7 @@ def predict():
     switch_str = {"shift":request.form['shift'],
                   "date":request.form['date'],
                   "start_time":request.form['start_time'],
-                  "end_time":request.form['end_time'],
-                  "confirmation":request.form['confirmation'],
+                  "end_time":request.form['end_time']
                   "cut":request.form['cut'] }
     switch = change_datetime.change(switch_str)
     # time_until string
