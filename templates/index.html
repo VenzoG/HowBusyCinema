@@ -39,9 +39,18 @@
             <label for="end_time">End Time:</label>
             <input type="time" name="end_time" required="required" min="12:00" max="04:00" required="required" step="900"/>
         
-          
+            <br>
+            
+            <label for="school_holidays">Is it going to be the school holidays?:</label>
+            <select name="school_holidays" id="school_holidays">
+              <option value="">None</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            
             <br>
             <br>
+            
 
             <label for="cut">Has the shift been cut shorter already?:</label>
             <select name="cut" id="cut">
