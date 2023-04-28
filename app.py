@@ -17,23 +17,24 @@ def predict():
     switch_str = {"shift":request.form['shift'],
                   "date":request.form['date'],
                   "start_time":request.form['start_time'],
-                  "end_time":request.form['end_time']
-                  "cut":request.form['cut'] }
+                  "end_time":request.form['end_time'],
+                  "cut":request.form['cut'],
+                  "school_holiday":request.form["school_holiday"]}
     switch = change_datetime.change(switch_str)
     # time_until string
     time_until_str = change_datetime.time_until(switch)
     
     # shift string
     if (switch['shift']=="gck"):
-        shift_str = "You have a GC kitchen shift. Last minute date night package :)"
+        shift_str = "You have a GC kitchen shift. It's like Overcooked in real life around that hideous steel bench."
     elif (switch['shift']=="gcb"):
-        shift_str = "You have a GC bar sales shift. Here is the newest promo deal no one told you about! :D"
+        shift_str = "You have a GC bar sales shift. There are 5 cookies & cream shakes."
     elif (switch['shift']=="gcr"):
         shift_str = "You have a GC runner shift. RUN FORREST RUN."
     elif (switch['shift']=="gch"):
         shift_str = "You have a GC host (runner) shift. Host with the most."
     elif (switch['shift']=="gcs"):
-        shift_str = "You are a GC supervisor."
+        shift_str = "You are a GC supervisor. Well that's just super isn't it."
     elif (switch['shift']=="up"):
         shift_str = "You are working upstairs. This predictor is not ready for you yet sorry :("
     
@@ -41,8 +42,7 @@ def predict():
     result_str = ""
     if (switch['shift'] == 'gcs'):
         result_str = result_str + "As a supervisor, it is less likely your shift will be cut. "
-    if (switch['confirmation'] == 'yes'):
-        result_str = result_str + "As your shift has been confirmed, it is less likely your shift will be cut further. "
+      
     if (switch['cut'] == 'yes'):
         result_str = result_str + "As your shift has already been cut, it is less likely your shift will be cut further. "
     if (result_str == ""):
