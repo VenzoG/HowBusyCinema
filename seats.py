@@ -53,6 +53,7 @@ def get_seats(date):
         runtime = -1
         release_date = -1
         cinema=-1
+        freshness=False
         if (len(desktop_elements) > 0):
             for i, element in enumerate(desktop_elements):
                 print(element.text)
@@ -61,7 +62,8 @@ def get_seats(date):
                     runtime = int(text_elements[i].text[0:3])
                     cinema=0
                 if (element.text == "Release Date:"):
-                    release_date = int(text_elements[i].text[0:3])
+                    release_date_str = int(text_elements[i].text[0:3])
+                    release_date = datetime.strptime(release_date_str, "%d/%m/%Y")
               
                     
         driver.back()
@@ -81,9 +83,11 @@ def get_seats(date):
             sess_time = datetime(sess_yr, sess_mth, sess_day, sess_hr, sess_min)
             end_time = sess_time + timedelta(minutes=runtime)
 
+            freshness = (sess_time-release_date <= timedelta(days=7))
+
             seats = int(sess.get_attribute("data-seatsavailable"))
 
-            sess_row = {"session_time":sess_time, "end_time":end_time, "cinema":cinema, "movie":m_name, "runtime":runtime, "seats_available":seats}
+            sess_row = {"session_time":sess_time, "end_time":end_time, "cinema":cinema, "movie":m_name, "runtime":runtime, "new_release":freshness, "seats_available":seats}
             sess_list.append(sess_row)
             print("*SESSION DETAILS*", sess_row)
 
