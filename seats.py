@@ -213,11 +213,7 @@ class model():
         else:
             chance *= 0.75
 
-        "-confirmed vs non-confirmed *70%, *140"
-        if (switch['confirmation'] == 'no'):
-            chance *= 1.4
-        else:
-            chance *= 0.8
+       
 
         "-cut vs not-yet cut; *10%, *110%"
         if (switch['cut'] == 'yes'):
