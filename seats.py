@@ -58,7 +58,7 @@ def get_seats(date):
         print("CURRENT RUNTIME INVESTIIGATION FOR THIS MOVIE: ", driver.current_url)
         desktop_elements = driver.find_elements(By.XPATH, "//*[@class='prop ']/span")
         text_elements = driver.find_elements(By.XPATH, "//*[@class='prop ']/p")
-        runtime = -1
+        runtime = 120
         release_date = -1
         cinema=-1
         freshness=False
