@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from datetime import datetime, timedelta
 import pandas as pd
 import os
+import pickle
 
 #https://www.andressevilla.com/running-chromedriver-with-python-selenium-on-heroku/
 chrome_options = webdriver.ChromeOptions() #"CHROMEDRIVER_VERSION"
