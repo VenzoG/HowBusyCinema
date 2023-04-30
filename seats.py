@@ -205,6 +205,43 @@ class model():
         
         filename = 'finalized_model.sav'
         loaded_model = pickle.load(open(filename, 'rb'))
+        
+        shift_run=False
+        shift_super=False
+        shift_kitchen=False
+
+        if (switch['shift']=="gck"):
+            shift_kitchen=True
+        elif (switch['shift']=="gcb"):
+            shift_run=True
+        elif (switch['shift']=="gcr"):
+            shift_run=True
+        elif (switch['shift']=="gch"):
+            shift_run=True
+        elif (switch['shift']=="gcs"):
+            shift_super=True
+
+        weather=0
+
+        already_cut = switch['cut']
+
+        pre_sale_high = df['taken_percent'].max()
+
+        time_until_shift = (switch['start_time'] - datetime.now()).total_seconds()/3600
+
+        day_of_week = 0
+
+        public_holiday = 0
+
+        school_holiday = switch['school_holidays']
+
+        freshness=int(df['new_release'].max())
+
+        hours=(switch['start_time'] - switch['end_time']).total_seconds()/3600
+
+        data_row = [shift_run, shift_super, shift_kitchen, weather, already_cut, pre_sale_high, 
+                    time_until_shift, day_of_week, public_holiday, school_holiday, freshness, hours]
+
 
         chance = 100
         return "There is a "+str(chance)[0:5]+"% chance that your shift could be cut. Hugs and Kisses!!! C:"
