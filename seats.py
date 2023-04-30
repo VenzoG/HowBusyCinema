@@ -13,6 +13,12 @@ chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument('--disable-gpu')
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
+# setup the driver
+#s=Service(ChromeDriverManager().install())
+#driver = webdriver.Chrome(service=s)
+#driver.maximize_window()
+#driver.implicitly_wait(10);
+
 # Now you can start using Selenium
 
 def get_seats(date):
