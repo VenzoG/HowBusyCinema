@@ -231,7 +231,7 @@ class model():
 
         time_until_shift = (switch['start_time'] - datetime.now()).total_seconds()/3600
 
-        day_of_week = 0
+        day_of_week = switch['start_time'].weekday()
 
         public_holiday = 0
 
