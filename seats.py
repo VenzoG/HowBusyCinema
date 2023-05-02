@@ -204,9 +204,6 @@ class model():
     
     def make_model(switch, df, function):
         
-        filename = 'finalized_model.sav'
-        loaded_model = pickle.load(open(filename, 'rb'))
-        
         shift_run=0
         shift_super=0
         shift_kitchen=0
