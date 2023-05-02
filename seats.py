@@ -253,4 +253,4 @@ class model():
         loaded_model = pickle.load(open(filename, 'rb'))
         
         chance = loaded_model.predict([data_row])
-        return "There is a "+str(chance)[0:5]+"% chance that your shift could be cut. Hugs and Kisses!!! C:"
+        return "There is a "+str(chance)[1:5]+"% chance that your shift could be cut. Hugs and Kisses!!! C:"
