@@ -148,7 +148,7 @@ def get_seats(date):
             pd.concat([df2,df])
             function=True
         else:
-            pass
+            pd.concat([df1,df])
     else:
         if (df2.shape[0] - df1.shape[0] > 1):
             pd.concat([df1,df])
@@ -157,10 +157,10 @@ def get_seats(date):
             pd.concat([df2,df])
             function=True
         else:
-            pass
+            pd.concat([df1,df])
 
     df = pd.concat([df1,df2])
-    return df0, function
+    return df, function
 
 class have_seats():
     def __init__(self):
