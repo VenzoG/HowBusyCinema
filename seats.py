@@ -99,6 +99,7 @@ def get_seats(date):
             print("*SESSION DETAILS*", sess_row)
 
     df = pd.DataFrame(sess_list)
+    df0 = df.copy()
     df.sort_values("session_time", inplace=True)
     df.reset_index(inplace=True)
     df.drop(["index"], axis=1, inplace=True)
@@ -159,7 +160,7 @@ def get_seats(date):
             pass
 
     df = pd.concat([df1,df2])
-    return df, function
+    return df0, function
 
 class have_seats():
     def __init__(self):
