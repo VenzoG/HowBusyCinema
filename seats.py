@@ -243,6 +243,8 @@ class model():
         data_row = [shift_run, shift_super, shift_kitchen, weather, already_cut, pre_sale_high, 
                     time_until_shift, day_of_week, public_holiday, school_holiday, freshness, hours]
 
-
-        chance = 100
+        filename = 'finalized_model.sav'
+        loaded_model = pickle.load(open(filename, 'rb'))
+        
+        chance = loaded_model.predict(data_row)
         return "There is a "+str(chance)[0:5]+"% chance that your shift could be cut. Hugs and Kisses!!! C:"
