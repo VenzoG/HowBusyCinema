@@ -207,24 +207,27 @@ class model():
         filename = 'finalized_model.sav'
         loaded_model = pickle.load(open(filename, 'rb'))
         
-        shift_run=False
-        shift_super=False
-        shift_kitchen=False
+        shift_run=0
+        shift_super=0
+        shift_kitchen=0
 
         if (switch['shift']=="gck"):
-            shift_kitchen=True
+            shift_kitchen=1
         elif (switch['shift']=="gcb"):
-            shift_run=True
+            shift_run=1
         elif (switch['shift']=="gcr"):
-            shift_run=True
+            shift_run=1
         elif (switch['shift']=="gch"):
-            shift_run=True
+            shift_run=1
         elif (switch['shift']=="gcs"):
-            shift_super=True
+            shift_super=1
 
         weather=0
-
-        already_cut = switch['cut']
+    
+        if (switch['cut']=='yes'):
+            already_cut = 1
+        elif (switch['cut']=='no'):
+            already_cut = 0
 
         pre_sale_high = df['taken_percent'].max()
 
@@ -234,8 +237,11 @@ class model():
 
         public_holiday = 0
 
-        school_holiday = switch['school_holidays']
-
+        if (switch['school_holidays']=='yes'):
+            school_holiday = 1
+        elif (switch['school_holidays']=='no'):
+            school_holiday = 0
+            
         freshness=int(df['new_release'].max())
 
         hours=(switch['start_time'] - switch['end_time']).total_seconds()/3600
