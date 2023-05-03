@@ -190,8 +190,8 @@ def match_nsw_holiday(date, year):
             easter_sat = easter_sun - timedelta(days=1)
             easter_fri = easter_sun - timedelta(days=2)
             easter_mon = easter_sun + timedelta(days=1)
-            if (date.date() == easter_sun.date() | date.date() == easter_fri.date() | 
-                date.date() == easter_sat.date() | date.date() == easter_mon.date() ):
+            if ((date.date() == easter_sun.date()) | (date.date() == easter_fri.date()) | 
+                (date.date() == easter_sat.date()) | (date.date() == easter_mon.date()) ):
                 return True
             
             queens_bday = datetime(date.year, 1, 1, 0, 0, 0) + relativedelta(month=6, weekday=MO(2))
