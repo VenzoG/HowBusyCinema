@@ -245,7 +245,7 @@ def weather_pred(target_date):
             return 2, "The weather is predicted to be shit. Sharknado-esque really. Leaks incoming. \n"
 
     except:
-        return 0;
+        return 0, "Weather prediction not available! \n";
 
 class have_seats():
     def __init__(self):
