@@ -193,6 +193,28 @@ def match_nsw_holiday(date, year):
     
     return False
 
+def weather_pred(target_date):
+    try:
+        api_key="6ffb5271db4b5ca4290007c711567ad9"
+        city = "Sydney"
+        country_code = "au"
+        unix_timestamp = target_date.timestamp()
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={city},{country_code}&dt={unix_timestamp}&appid={api_key}"
+
+        response = urllib.request.urlopen(url)
+        data = json.loads(response.read())
+        weather_prediction=data['weather'][0]['main']
+        
+        if (weather_prediction == "Clear"):
+            return 0
+        elif (weather_prediction == "Clouds" | weather_prediction == "Fog" | weather_prediction == "Haze"):
+            return 1 
+        else: 
+            return 2
+
+    except Error:
+        return 0;
+
 class have_seats():
     def __init__(self):
         pass
@@ -251,7 +273,7 @@ class model():
         elif (switch['shift']=="gcs"):
             shift_super=1
 
-        weather=0
+        weather= weather_pred(switch['start_time'])
     
         if (switch['cut']=='yes'):
             already_cut = 1
