@@ -102,8 +102,9 @@ def predict():
     print(s_pc, "CVBGRBACVFGRDRGEAFWDFVGDHRGSFSDVGH: " + str(round(s_pc,2))[0:5])
     seats_full_str = "Currently, there are " + str(round(s_pc,2))[0:5] + "% of seats booked in the sessions on during your shifts:"
     # percentage string
-    percent_str = model.make_model(switch, df, function)
+    percent_str, results_str_add = model.make_model(switch, df, function)
 
+    results_str += results_str_add
     return render_template('prediction.html', 
                            shift_type=(shift_str),
                            time_til=(time_until_str),
