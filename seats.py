@@ -170,13 +170,10 @@ def match_nsw_holiday(date, year):
     nsw_holidays = {
     "New Year's Day": (1, 1),
     "Australia Day": (1, 26),
-    "Good Friday": None,
-    "Easter Monday": None,
     "Anzac Day": (4, 25),
-    "Queen's Birthday": None,
-    "Bank Holiday": None,
     "Christmas Day": (12, 25),
-    "Boxing Day": (12, 26)
+    "Boxing Day": (12, 26),
+    "Rolling Date Holiday": None
     }
     holidays = []
     
@@ -184,7 +181,7 @@ def match_nsw_holiday(date, year):
         if date_rule is not None:
             month, day = date_rule
             holiday_date = datetime(year, month, day)
-            if (date.date == holiday_date.date):
+            if (date.date() == holiday_date.date()):
                 return True
         else:
             pass
@@ -193,15 +190,16 @@ def match_nsw_holiday(date, year):
             easter_sat = easter_sun - timedelta(days=1)
             easter_fri = easter_sun - timedelta(days=2)
             easter_mon = easter_sun + timedelta(days=1)
-            if (date.date == easter_sun.date | date.date == easter_fri.date | date.date == easter_sat.date | date.date == easter_mon.date):
+            if (date.date() == easter_sun.date() | date.date() == easter_fri.date() | 
+                date.date() == easter_sat.date() | date.date() == easter_mon.date() ):
                 return True
             
             queens_bday = datetime(date.year, 1, 1, 0, 0, 0) + relativedelta(month=6, weekday=MO(2))
-            if (date.date == queens_bday.date):
+            if (date.date() == queens_bday.date()):
                 return True
             
             bank_holiday = datetime(date.year, 1, 1, 0, 0, 0) + relativedelta(month=8, weekday=MO(1))
-            if (date.date == bank_holiday.date):
+            if (date.date() == bank_holiday.date()):
                 return True
             
     return False
