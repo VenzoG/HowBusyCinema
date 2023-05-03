@@ -160,7 +160,7 @@ def get_seats(date):
             pd.concat([df1,df])
 
     df = pd.concat([df1,df2])
-    print(CUNT, df0)
+    print("CUNT", df0)
     return df0, function
 
 class have_seats():
