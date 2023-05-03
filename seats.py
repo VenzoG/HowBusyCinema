@@ -244,7 +244,7 @@ def weather_pred(target_date):
         else: 
             return 2, "The weather is predicted to be shit. Sharknado-esque really. Leaks incoming. \n"
 
-    except Error:
+    except:
         return 0;
 
 class have_seats():
