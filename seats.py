@@ -99,12 +99,12 @@ def get_seats(date):
             print("*SESSION DETAILS*", sess_row)
 
     df = pd.DataFrame(sess_list)
-    df0 = df.copy()
     df.sort_values("session_time", inplace=True)
     df.reset_index(inplace=True)
     df.drop(["index"], axis=1, inplace=True)
     df.loc[0, "cinema"] = 1
     df['taken_percent'] = 1-df['seats_available']/40
+    df0 = df.copy()
 
     # cinema1 and cinema2 split
     df1 = pd.DataFrame().add(df.loc[0])
@@ -160,7 +160,7 @@ def get_seats(date):
             pd.concat([df1,df])
 
     df = pd.concat([df1,df2])
-    print("CUNT", df0)
+    print("CNT", df0)
     return df0, function
 
 class have_seats():
