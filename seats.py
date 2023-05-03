@@ -200,7 +200,7 @@ def match_nsw_holiday(date, year):
             if (date.date == queens_bday):
                 return True
             
-            bank_holiday = datetime(date.year, 1, 1, 0, 0, 0) + relativedelta(month=8 weekday=MO(1))
+            bank_holiday = datetime(date.year, 1, 1, 0, 0, 0) + relativedelta(month=8, weekday=MO(1))
             if (date.date == bank_holiday):
                 return True
             
