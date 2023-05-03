@@ -182,7 +182,7 @@ def match_nsw_holiday(date, year):
             month, day = date_rule
             holiday_date = datetime(year, month, day)
             if (date.date() == holiday_date.date()):
-                return True
+                return True, name + "! Public Holiday! Happy penalty rates! \n"
         else:
             pass
             easter = is_easter(date.year)
@@ -192,15 +192,18 @@ def match_nsw_holiday(date, year):
             easter_mon = easter_sun + timedelta(days=1)
             if ((date.date() == easter_sun.date()) | (date.date() == easter_fri.date()) | 
                 (date.date() == easter_sat.date()) | (date.date() == easter_mon.date()) ):
-                return True
+                return True, "Easter long weekend! No restaurants open on Friday or Sunday so be careful :( \n"
             
             queens_bday = datetime(date.year, 1, 1, 0, 0, 0) + relativedelta(month=6, weekday=MO(2))
+            queens_bday_sun = queens_bday - timedelta(days=1)
+            queens_bday_sat = queens_bday - timedelta(days=2)
             if (date.date() == queens_bday.date()):
-                return True
+                return True, "Queens Birthday Long Weekend! Long Live Queen (RuPaul) Charles! \n"
             
             bank_holiday = datetime(date.year, 1, 1, 0, 0, 0) + relativedelta(month=8, weekday=MO(1))
+            bank_holiday 
             if (date.date() == bank_holiday.date()):
-                return True
+                return True, "Bank holiday long weekend! Where's all our money going anyways?.. \n"
             
     return False
 
@@ -232,13 +235,14 @@ def weather_pred(target_date):
         response = urllib.request.urlopen(url)
         data = json.loads(response.read())
         weather_prediction=data['weather'][0]['main']
+        weather_temp = data['main']['feels_like']-273.15
         
-        if (weather_prediction == "Clear"):
-            return 0
-        elif (weather_prediction == "Clouds" | weather_prediction == "Fog" | weather_prediction == "Haze"):
-            return 1 
+        if (weather_prediction == "Clear" & weather_temp >= 20):
+            return 0, "The weather is predicted for clear and warm. Beach weather and fewer ticket sales! \n"
+        elif (weather_prediction == "Clouds" | weather_prediction == "Fog" | weather_prediction == "Haze" | weather_temp < 20):
+            return 1, "The weather is predicted to be a bit down. Could go either way! \n"
         else: 
-            return 2
+            return 2, "The weather is predicted to be shit. Sharknado-esque really. Leaks incoming. \n"
 
     except Error:
         return 0;
@@ -285,7 +289,7 @@ class model():
         pass
     
     def make_model(switch, df, function):
-        
+        result_str = ""
         shift_run=0
         shift_super=0
         shift_kitchen=0
@@ -301,8 +305,9 @@ class model():
         elif (switch['shift']=="gcs"):
             shift_super=1
 
-        weather= weather_pred(switch['start_time'])
-    
+        weather, weather_str = weather_pred(switch['start_time'])
+        result_str += weather_str
+        
         if (switch['cut']=='yes'):
             already_cut = 1
         elif (switch['cut']=='no'):
@@ -313,15 +318,24 @@ class model():
         time_until_shift = (switch['start_time'] - datetime.now()).total_seconds()/3600
 
         day_of_week = switch['start_time'].weekday()
+        if (day_of_week >= 4):
+            result_str += "Your shift is on the weekend! It'll be a cold day at Hogwarts if you get cut. \n"
+        else:
+            result_str += "Weekday shift! A cut is more likely due to that. \n"
 
-        public_holiday = match_nsw_holiday(switch['date'],switch['date'].year)
+        public_holiday, public_str = match_nsw_holiday(switch['date'],switch['date'].year)
+        result_str += public_str
 
         if (switch['school_holidays']=='yes'):
             school_holiday = 1
+            result_str += "School holidays! Brace yourself... particularly for the daytime family movies... \n"
         elif (switch['school_holidays']=='no'):
             school_holiday = 0
             
         freshness=int(df['new_release'].max())
+        
+        if (freshness == 1):
+            result_str += "Our records indicate a movie is in opening week during your shift! This makes it less likely you'll be cut.\n"
 
         hours=(switch['start_time'] - switch['end_time']).total_seconds()/3600
 
