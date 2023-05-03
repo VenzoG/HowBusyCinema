@@ -205,7 +205,7 @@ def match_nsw_holiday(date, year):
             if (date.date() == bank_holiday.date()):
                 return True, "Bank holiday long weekend! Where's all our money going anyways?.. \n"
             
-    return False
+    return False, ""
 
 def is_easter(year):
     a = year % 19
