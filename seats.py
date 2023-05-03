@@ -308,7 +308,7 @@ class model():
         elif (switch['cut']=='no'):
             already_cut = 0
 
-        pre_sale_high = df['taken_percent'].mean()
+        pre_sale_high = df['taken_percent'].min()
 
         time_until_shift = (switch['start_time'] - datetime.now()).total_seconds()/3600
 
