@@ -166,7 +166,6 @@ def get_seats(date):
     print("CNT", df0)
     return df0, function
 
-# Get list of NSW public holidays for a given year
 def match_nsw_holiday(date, year):
     nsw_holidays = {
     "New Year's Day": (1, 1),
