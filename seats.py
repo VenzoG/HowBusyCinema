@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
+from dateutil.relativedelta import relativedelta, MO
 import pandas as pd
 import os
 import pickle
@@ -166,6 +166,7 @@ def get_seats(date):
     print("CNT", df0)
     return df0, function
 
+# Get list of NSW public holidays for a given year
 def match_nsw_holiday(date, year):
     nsw_holidays = {
     "New Year's Day": (1, 1),
@@ -173,26 +174,55 @@ def match_nsw_holiday(date, year):
     "Good Friday": None,
     "Easter Monday": None,
     "Anzac Day": (4, 25),
-    "Queen's Birthday": relativedelta(month=6, day=1, weekday=MO(+2)),
-    "Bank Holiday": relativedelta(month=8, day=1, weekday=MO),
+    "Queen's Birthday": None,
+    "Bank Holiday": None,
     "Christmas Day": (12, 25),
     "Boxing Day": (12, 26)
     }
     holidays = []
     
-    for name, date_or_rule in nsw_holidays.items():
-        if date_or_rule is not None:
-            month, day = date_or_rule
-            holiday_date = datetime.date(year, month, day)
+    for name, date_rule in nsw_holidays.items():
+        if date_rule is not None:
+            month, day = date_rule
+            holiday_date = datetime(year, month, day)
+            if (date.date == holiday_date.date):
+                return True
         else:
-            holiday_date = easter(year) + dateutil.relativedelta.relativedelta(**date_or_rule)
-        holidays.append((name, holiday_date))
-        
-    for holiday in holidays:
-        if (date == holiday):
-            return True
-    
+            pass
+            easter = is_easter(date.year)
+            easter_sun = datetime(date.year, easter[0], easter[1])
+            easter_sat = easter_sun - timedelta(days=1)
+            easter_fri = easter_sun - timedelta(days=2)
+            easter_mon = easter_sun + timedelta(days=1)
+            if (date.date == easter_sun | date.date == easter_fri | date.date == easter_sat | date.date == easter_mon):
+                return True
+            
+            queens_bday = datetime(date.year, 1, 1, 0, 0, 0) + relativedelta(month=6, weekday=MO(2))
+            if (date.date == queens_bday):
+                return True
+            
+            bank_holiday = datetime(date.year, 1, 1, 0, 0, 0) + relativedelta(month=8 weekday=MO(1))
+            if (date.date == bank_holiday):
+                return True
+            
     return False
+
+def is_easter(year):
+    a = year % 19
+    b = year // 100
+    c = year % 100
+    d = b // 4
+    e = b % 4
+    f = (b + 8) // 25
+    g = (b - f + 1) // 3
+    h = (19 * a + b - d - g + 15) % 30
+    i = c // 4
+    k = c % 4
+    l = (32 + 2 * e + 2 * i - h - k) % 7
+    m = (a + 11 * h + 22 * l) // 451
+    month = (h + l - 7 * m + 114) // 31
+    day = ((h + l - 7 * m + 114) % 31) + 1
+    return month, day
 
 def weather_pred(target_date):
     try:
