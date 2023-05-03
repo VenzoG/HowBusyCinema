@@ -163,6 +163,34 @@ def get_seats(date):
     print("CNT", df0)
     return df0, function
 
+def match_nsw_holiday(date, year):
+    nsw_holidays = {
+    "New Year's Day": (1, 1),
+    "Australia Day": (1, 26),
+    "Good Friday": None,
+    "Easter Monday": None,
+    "Anzac Day": (4, 25),
+    "Queen's Birthday": relativedelta(month=6, day=1, weekday=MO(+2)),
+    "Bank Holiday": relativedelta(month=8, day=1, weekday=MO),
+    "Christmas Day": (12, 25),
+    "Boxing Day": (12, 26)
+    }
+    holidays = []
+    
+    for name, date_or_rule in nsw_holidays.items():
+        if date_or_rule is not None:
+            month, day = date_or_rule
+            holiday_date = datetime.date(year, month, day)
+        else:
+            holiday_date = easter(year) + dateutil.relativedelta.relativedelta(**date_or_rule)
+        holidays.append((name, holiday_date))
+        
+    for holiday in holidays:
+        if (date == holiday):
+            return True
+    
+    return False
+
 class have_seats():
     def __init__(self):
         pass
@@ -234,7 +262,7 @@ class model():
 
         day_of_week = switch['start_time'].weekday()
 
-        public_holiday = 0
+        public_holiday = match_nsw_holiday(switch['date'],switch['date'].year)
 
         if (switch['school_holidays']=='yes'):
             school_holiday = 1
