@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 import pandas as pd
 import os
 import pickle
+import urllib.request
+import json
 
 #https://www.andressevilla.com/running-chromedriver-with-python-selenium-on-heroku/
 chrome_options = webdriver.ChromeOptions() #"CHROMEDRIVER_VERSION"
