@@ -238,9 +238,9 @@ def weather_pred(target_date):
         weather_prediction=data['weather'][0]['main']
         weather_temp = int(data['main']['feels_like']-273)
         
-        if (weather_prediction == "Clear" & weather_temp >= 20):
+        if ((weather_prediction == "Clear") & (weather_temp >= 20)):
             return 0, "The weather is predicted for clear and warm, beach weather and fewer ticket sales! \n"
-        elif (weather_prediction == "Clouds" | weather_prediction == "Fog" | weather_prediction == "Haze" | weather_temp < 20):
+        elif ((weather_prediction == "Clouds") | (weather_prediction == "Fog") | (weather_prediction == "Haze") | (weather_temp < 20)):
             return 1, "The weather is predicted to be a bit down, could go either way! \n"
         else: 
             return 2, "The weather is predicted to be shit, sharknado-esque really, leaks incoming. \n"
@@ -346,6 +346,7 @@ class model():
 
         loaded_model = pickle.load(open('model.pkl', 'rb'))
         
+        print(data_row)
         chance = loaded_model.predict([data_row])
         percent_str = "There is a "+str(chance)+"% chance that your shift could be cut. Hugs and Kisses!!! C:"
         
