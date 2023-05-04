@@ -48,7 +48,7 @@ def predict():
     if (result_str == ""):
         result_str = "Be wary! "
         
-    result_str = result_str + "Here is the predictive percentage that your shift will be cut further ASFDSAFSFSK:"
+    result_str = result_str
     
     df, function = have_seats.grab(switch['date'])
     
