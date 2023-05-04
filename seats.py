@@ -7,6 +7,7 @@ import os
 import pickle
 import urllib.request
 import json
+import traceback
 
 #https://www.andressevilla.com/running-chromedriver-with-python-selenium-on-heroku/
 chrome_options = webdriver.ChromeOptions() #"CHROMEDRIVER_VERSION"
@@ -245,6 +246,7 @@ def weather_pred(target_date):
             return 2, "The weather is predicted to be shit, sharknado-esque really, leaks incoming. \n"
 
     except:
+        traceback.print_exc()
         return 0, "Weather prediction not available! \n";
 
 class have_seats():
