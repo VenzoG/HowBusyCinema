@@ -321,7 +321,7 @@ class model():
 
         day_of_week = switch['start_time'].weekday()
         if (day_of_week >= 4):
-            result_str += "Your shift is on the weekend, it'll be a cold day at Hogwarts if you get cut. \n"
+            result_str += "Your shift is on the weekend zone, gods have mercy on you. \n"
         else:
             result_str += "Weekday shift, a cut is more likely due to that. \n"
 
