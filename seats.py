@@ -348,6 +348,6 @@ class model():
         
         print(data_row)
         chance = loaded_model.predict([data_row])
-        percent_str = "There is a "+str(chance)+"% chance that your shift could be cut. Hugs and Kisses!!! C:"
+        percent_str = "There is a "+str(chance)[1:-1]+"% chance that your shift could be cut. Hugs and Kisses!!! C:"
         
         return percent_str, result_str
