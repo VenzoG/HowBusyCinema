@@ -330,14 +330,14 @@ class model():
 
         if (switch['school_holidays']=='yes'):
             school_holiday = 1
-            result_str += "School holidays, brace yourself... particularly for the daytime family movies... \n"
+            result_str += "School holidays, brace yourself, particularly for the daytime family movies. \n"
         elif (switch['school_holidays']=='no'):
             school_holiday = 0
             
         freshness=int(df['new_release'].max())
         
         if (freshness == 1):
-            result_str += "Our records indicate a movie is in opening week during your shift, this makes it less likely you'll be cut.\n"
+            result_str += "The records indicate a movie is in opening week during your shift, this makes it less likely you'll be cut.\n"
 
         hours=(switch['end_time']-switch['start_time']).total_seconds()/3600
 
