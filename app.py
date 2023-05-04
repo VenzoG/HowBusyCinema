@@ -104,7 +104,7 @@ def predict():
     # percentage string
     percent_str, results_str_add = model.make_model(switch, df, function)
 
-    results_str += results_str_add
+    result_str += results_str_add
     return render_template('prediction.html', 
                            shift_type=(shift_str),
                            time_til=(time_until_str),
