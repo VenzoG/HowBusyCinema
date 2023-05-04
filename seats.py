@@ -236,7 +236,7 @@ def weather_pred(target_date):
         response = urllib.request.urlopen(url)
         data = json.loads(response.read())
         weather_prediction=data['weather'][0]['main']
-        weather_temp = data['main']['feels_like']-273.15
+        weather_temp = int(data['main']['feels_like']-273)
         
         if (weather_prediction == "Clear" & weather_temp >= 20):
             return 0, "The weather is predicted for clear and warm, beach weather and fewer ticket sales! \n"
