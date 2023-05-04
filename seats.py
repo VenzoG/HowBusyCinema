@@ -347,6 +347,6 @@ class model():
         loaded_model = pickle.load(open('model.pkl', 'rb'))
         
         chance = loaded_model.predict([data_row])
-        percent_str = "There is a "+str(chance)[1:5]+"% chance that your shift could be cut. Hugs and Kisses!!! C:"
+        percent_str = "There is a "+str(chance)+"% chance that your shift could be cut. Hugs and Kisses!!! C:"
         
         return percent_str, result_str
