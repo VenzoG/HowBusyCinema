@@ -339,7 +339,7 @@ class model():
         if (freshness == 1):
             result_str += "Our records indicate a movie is in opening week during your shift, this makes it less likely you'll be cut.\n"
 
-        hours=(switch['start_time'] - switch['end_time']).total_seconds()/3600
+        hours=(switch['end_time']-switch['start_time']).total_seconds()/3600
 
         data_row = [shift_run, shift_super, shift_kitchen, weather, already_cut, pre_sale_high, 
                     time_until_shift, day_of_week, public_holiday, school_holiday, freshness, hours]
