@@ -193,20 +193,20 @@ def match_nsw_holiday(date, year):
             easter_mon = easter_sun + timedelta(days=1)
             if ((date.date() == easter_sun.date()) | (date.date() == easter_fri.date()) | 
                 (date.date() == easter_sat.date()) | (date.date() == easter_mon.date()) ):
-                return True, "Easter long weekend, no restaurants open on Friday or Sunday so be careful :( \n"
+                return 1, "Easter long weekend, no restaurants open on Friday or Sunday so be careful :( \n"
             
             queens_bday = datetime(date.year, 1, 1, 0, 0, 0) + relativedelta(month=6, weekday=MO(2))
             queens_bday_sun = queens_bday - timedelta(days=1)
             queens_bday_sat = queens_bday - timedelta(days=2)
             if (date.date() == queens_bday.date()):
-                return True, "Queens Birthday Long Weekend, long Live Queen (RuPaul) Charles! \n"
+                return 1, "Queens Birthday Long Weekend, long Live Queen (RuPaul) Charles! \n"
             
             bank_holiday = datetime(date.year, 1, 1, 0, 0, 0) + relativedelta(month=8, weekday=MO(1))
             bank_holiday 
             if (date.date() == bank_holiday.date()):
-                return True, "Bank holiday long weekend, where's all our money going anyways?.. \n"
+                return 1, "Bank holiday long weekend, where's all our money going anyways?.. \n"
             
-    return False, ""
+    return 0, ""
 
 def is_easter(year):
     a = year % 19
